@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="/static/Plugin/jquery-2.2.4.js"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta charset="UTF-8">
+    <title>发送短信</title>
+</head>
+<body>
+    <h1 style="text-align: center">发送列表</h1>
+    <table class="user_list" style="margin:0 auto">
+    <tr>
+        <td colspan="2" style="text-align: center">
+            <a href="javascript:void(0)" onclick="fast_select()">选中综合岗</a>
+        </td>
+        <td style="text-align: center">
+            <a href="javascript:void(0)" onclick="return send_message()">确认发送</a>
+        </td>
+    </tr>
+    {% for item in user_list %}
+        <tr>
+        <td>
+            <input style="text-align: center" type="checkbox" name="select_user" value="{{ item.get("phone_number") }}"/>
+            <label style="text-align: center">{{ item.get("name") }}</label>
+        </td>
+        <td>{{ item.get("phone_number") }}</td>
+        <td>{{ item.get("workgroup") }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    <p style="text-align: right">Developed by 综合管理部, ver:2020-05-03</p>
+    <script type="text/javascript">
+        function send_message() {
+            let phone_number_list = document.getElementsByName("select_user");
+            let target_list = [];
+            for (let i = 0; i < phone_number_list.length; i++) {
+                if (phone_number_list[i].checked === true) {
+                    target_list.push(phone_number_list[i].value);
+                }
+            }
+            if (!target_list.length) {
+                alert("至少选中一个号码哦~");
+                return false;
+            }
+            else {
+                $.ajax({
+                    url: "/DailyReport/SendMessage",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(target_list),
+                    success: function (data) {
+                        if (data.status === 200) {
+                            alert(data.message);
+                            window.close();
+                        }
+                        else {
+                            alert(data.message);
+                            return false
+                        }
+                    }
+                })
+            }
+        }
+        function fast_select() {
+            let user_list = document.getElementsByClassName("user_list")[0].children[0];
+            for (let i = 1; i < user_list.children.length; i++) {
+                if (user_list.children[i].children[2].innerText === "综合岗") {
+                    user_list.children[i].children[0].children[0].checked = true;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

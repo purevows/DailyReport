@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--<script src="/static/Plugin/jquery-2.2.4.min.js"></script>-->
+    <script src="/static/Plugin/jquery-2.2.4.js"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta charset="UTF-8">
+    <title>每日落实情况填报</title>
+</head>
+<body onload="compatibility_prompt()">
+    <p style="text-align: right; font-size: 80%" id="compatibility_prompt"></p>
+    <h1 style="text-align: center">每日落实情况填报</h1>
+    <table class="subject" id="main_table" style="margin:0 auto" border="1">
+        <tr>
+            <td colspan="3">{{ current_department }}：{{ current_user }}</td>
+            <td colspan="4">
+                按日期查询：
+                <label><input type="date" id="set_date" name="set_date"/></label>
+                <a href="javascript:void(0)" onclick="query_list()">查询</a>
+            </td>
+            <td colspan="2" style="text-align: center"><a href="/logout">退出登录</a></td>
+        </tr>
+        <tr>
+            <td colspan="7">当前日期：{{ current_time }}</td>
+            <td colspan="2" style="text-align: center"><a href="/DailyReport/add_item">新增事项</a></td>
+        </tr>
+        <tr>
+            <td style="width: 150px; word-break: break-all; word-wrap: break-word; text-align: center">部门</td>
+            <td style="width: 400px; word-break: break-all; word-wrap: break-word; text-align: center">事项</td>
+            <td style="width: 100px; word-break: break-all; word-wrap: break-word; text-align: center">经办人</td>
+            <td style="width: 150px; word-break: break-all; word-wrap: break-word; text-align: center">备注</td>
+            <td style="width: 50px; word-break: break-all; word-wrap: break-word; text-align: center">填报人</td>
+            <td style="width: 80px; word-break: break-all; word-wrap: break-word; text-align: center">填报时间</td>
+            <td style="width: 100px; word-break: break-all; word-wrap: break-word; text-align: center">选项</td>
+            <td style="width: 75px; word-break: break-all; word-wrap: break-word; text-align: center">
+                {%- if current_department == "综合管理部" -%}
+                    <a href="javascript:void(0)" onclick="return first_check()">批量校对</a>
+                {%- else -%}
+                    校对
+                {%- endif -%}
+            </td>
+            <td style="width: 75px; word-break: break-all; word-wrap: break-word; text-align: center">
+                {%- if current_department == "综合管理部" -%}
+                    <a href="javascript:void(0)" onclick="return double_check()">批量审核</a>
+                {%- else -%}
+                    审核
+                {%- endif -%}
+            </td>
+        </tr>
+        {%- for item in item_list -%}
+            <tr class="item_list" id="{{ loop.index }}">
+                <td style="width: 150px; word-break: break-all; word-wrap: break-word; text-align: center">
+                    {{ item.get("department") }}
+                </td>
+                <td style="width: 400px; word-break: break-all; word-wrap: break-word">
+                    {{ item.get("content") | safe }}
+                </td>
+                <td style="width: 100px; word-break: break-all; word-wrap: break-word">
+                    {{ item.get("operator") | safe }}
+                </td>
+                <td style="width: 150px; word-break: break-all; word-wrap: break-word">
+                    {{ item.get("remark") | safe}}
+                </td>
+                <td style="width: 50px; word-break: break-all; word-wrap: break-word; text-align: center">
+                    {{ item.get("uploader") }}
+                </td>
+                <td style="width: 80px; word-break: break-all; word-wrap: break-word; text-align: center">
+                    {{ item.get("upload_time") }}
+                </td>
+                <td style="width: 100px; word-break: break-all; word-wrap: break-word; text-align: center">
+                {%- if item.get("first_check") == None and item.get("double_check") == None -%}
+                    {%- if item.get("department") == current_department or current_department == "综合管理部" -%}
+                        <a href="javascript:void(0)" onclick="modify_text('{{ loop.index }}')">修改</a>
+                        <a href="javascript:void(0)" onclick="delete_content('{{ loop.index }}')">删除</a>
+                    {%- endif -%}
+                {%- elif item.get("first_check") != None and item.get("double_check") == None -%}
+                    {%- if current_department == "综合管理部" -%}
+                        <a href="javascript:void(0)" onclick="modify_text('{{ loop.index }}')">修改</a>
+                    {%- endif -%}
+                {%- else -%}
+                {%- endif -%}
+                </td>
+                <td style="width: 75px; word-break: break-all; word-wrap: break-word; text-align: center">
+                    {%- if item.get("first_check") != None and item.get("first_check_time") != None -%}
+                        {{ item.get("first_check") }}
+                        <br>
+                        {{ item.get("first_check_time") }}
+                    {%- endif -%}
+                </td>
+                <td style="width: 75px; word-break: break-all; word-wrap: break-word; text-align: center">
+                    {%- if item.get("double_check") != None and item.get("double_check_time") != None -%}
+                        {{ item.get("double_check") }}
+                        <br>
+                        {{ item.get("double_check_time") }}
+                    {%- endif -%}
+                </td>
+                <td hidden>{{ item.get("id") }}</td>
+            </tr>
+        {%- endfor -%}
+        {%- if current_department == "综合管理部" -%}
+            <tr>
+                <td colspan="9">
+                    <a href="javascript:void(0)" onclick="ExportExcel()">导出Excel</a>&nbsp;&nbsp;
+                    <a href="javascript:void(0)" onclick="send_message_page()">短信提醒</a>
+                </td>
+            </tr>
+        {%- endif -%}
+    </table>
+    <p style="text-align: right">Developed by 综合管理部, ver:2020-05-20</p>
+    <p style="text-align: right"><a href="/DailyReport/readme" target="_blank">版本更新日志</a></p>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            let form_date = document.getElementById("set_date");
+            let date = new Date();
+            let get_month, get_date;
+            if (date.getMonth() < 10) {
+                get_month = "0" + (date.getMonth() + 1)
+            }
+            else {
+                get_month = date.getMonth() + 1
+            }
+            if (date.getDate() < 10) {
+                get_date = "0" + date.getDate()
+            }
+            else {
+                get_date = date.getDate()
+            }
+            form_date.value = date.getFullYear() + "-" + get_month + "-" + get_date;
+        });
+        function query_list() {
+            let form_data = document.getElementById("set_date");
+            let date_form = document.createElement("form");
+            date_form.action = "/DailyReport";
+            date_form.method = "GET";
+            date_form.appendChild(form_data);
+            document.body.appendChild(date_form);
+            date_form.submit()
+        }
+        function modify_text(id) {
+            if (document.querySelector("textarea") !== null) {
+                return alert("Please don't modify several contents at the same time")
+            }
+            let modify_node_list = document.getElementById(id);
+            let modify_click_function = modify_node_list.children[6];
+            let modify_text = modify_node_list.children[1];
+            let modify_operator = modify_node_list.children[2];
+            let modify_remark = modify_node_list.children[3];
+            let text_content = modify_text.innerText;
+            let operator_content = modify_operator.innerText;
+            let remark_content = modify_remark.innerText;
+            let insert_text_textarea = "<textarea name='modify_text" + id.toString() +
+                "' style='resize: none; width: 400px'>" + text_content + "</textarea>";
+            let insert_operator_textarea = "<textarea name='modify_operator" + id.toString() +
+                "' style='resize: none; width: 100px'>" + operator_content + "</textarea>";
+            let insert_remark_content = "<textarea name='modify_remark" + id.toString() +
+                "' style='resize: none; width: 150px'>" + remark_content + "</textarea>";
+            let insert_modify_function = "<a href='javascript:void(0)' onclick='submit_modify(" + id.toString() +
+                ")'>提交</a>  " + "<a href='javascript:void(0)' onclick='cancel_modify(" + id.toString() + ")'>取消</a>";
+            {% if current_department == "综合管理部" %}
+            let modify_department = modify_node_list.children[0];
+            let department_content = modify_department.innerText;
+            modify_department.innerHTML = "<textarea name='modify_department" + id.toString() +
+                "' style='resize: none; width: 150px'>" + department_content + "</textarea>";
+            {% endif %}
+            modify_text.innerHTML = insert_text_textarea;
+            modify_operator.innerHTML = insert_operator_textarea;
+            modify_remark.innerHTML = insert_remark_content;
+            modify_click_function.innerHTML = insert_modify_function;
+        }
+        function cancel_modify(id) {
+            let default_content = document.getElementsByName("modify_text" + id.toString())[0].defaultValue;
+            let default_operator = document.getElementsByName("modify_operator" + id.toString())[0].defaultValue;
+            let default_remark = document.getElementsByName("modify_remark" + id.toString())[0].defaultValue;
+            let default_modify_function = "<a href='javascript:void(0)' onclick='modify_text("
+                + id.toString() + ")'>修改</a>  " + "<a href='javascript:void(0)' onclick='delete_content("
+                + id.toString() + ")'>删除</a>";
+            {% if current_department == "综合管理部" %}
+            document.getElementById(id).children[0].innerHTML = document.getElementsByName("modify_department" +
+                id.toString())[0].defaultValue;
+            {% endif %}
+            document.getElementById(id).children[1].innerHTML = default_content;
+            document.getElementById(id).children[2].innerHTML = default_operator;
+            document.getElementById(id).children[3].innerHTML = default_remark;
+            document.getElementById(id).children[6].innerHTML = default_modify_function;
+        }
+        function submit_modify(id) {
+            let new_content = document.getElementsByName("modify_text" + id.toString())[0].value;
+            let new_operator = document.getElementsByName("modify_operator" + id.toString())[0].value;
+            let new_remark = document.getElementsByName("modify_remark" + id.toString())[0].value;
+            let content_id = document.getElementById(id.toString()).children[9].innerText;
+            {% if current_department == "综合管理部" %}
+            let new_department = document.getElementsByName("modify_department" + id.toString())[0].value;
+            {% else %}
+            let new_department = "{{ current_department }}";
+            {% endif %}
+            let form_data = JSON.stringify(
+                {
+                    "id": content_id,
+                    "content": new_content,
+                    "operator": new_operator,
+                    "remark": new_remark,
+                    "department": new_department
+                }
+            );
+            $.ajax({
+                type: "POST",
+                url: "/DailyReport/modify",
+                contentType: "application/json",
+                data: form_data,
+                success: function (data) {
+                    if (data.status === 200) {
+                        alert(data.message);
+                        location.reload();
+                    }
+                    else {
+                        alert(data.message)
+                    }
+                },
+                error: function (data) {
+                    alert(data);
+                },
+            })
+        }
+        function delete_content(id) {
+            let content_id = document.getElementById(id.toString()).children[9].innerText;
+            let form_data = JSON.stringify({"id": content_id});
+            $.ajax({
+                type: "POST",
+                url: "/DailyReport/del_item",
+                contentType: "application/json",
+                data: form_data,
+                success: function (data) {
+                    if (data.status === 200) {
+                        alert(data.message);
+                        location.reload();
+                    }
+                    else {
+                        alert(data.message)
+                    }
+                },
+                error: function (data) {
+                    alert(data);
+                },
+            })
+        }
+        function check_IE() {
+            return window.navigator.userAgent.indexOf('Trident') > 0 || window.navigator.userAgent.indexOf('MSIE ') > 0;
+        }
+        function compatibility_prompt() {
+            if (check_IE()) {
+                document.getElementById("compatibility_prompt").innerText = "当前页面处于IE兼容模式，" +
+                    "建议将浏览器切换为极速模式或更换\nChrome浏览器访问，避免出现兼容问题以达到最佳访问效果";
+            }
+        }
+    </script>
+    {% if current_department == "综合管理部" %}
+        <script type="text/javascript">
+            function first_check() {
+                let check_before_submit = confirm("已校对的事项业务部门将不能修改，是否确认校对");
+                if (check_before_submit === false) {
+                    return false
+                }
+                let item_list = document.getElementsByClassName("item_list");
+                let check_id = [];
+                for (let i = 0; i < item_list.length; i++) {
+                    check_id.push(item_list[i].children[9].innerText);
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/DailyReport/check_item",
+                    contentType: "application/json",
+                    data: JSON.stringify({"type": "first_check", "check_id": check_id}),
+                    success: function (data) {
+                        if (data.status === 200) {
+                            alert(data.message);
+                            location.reload();
+                        }
+                        else {
+                            alert(data.message)
+                        }
+                    },
+                    error: function (data) {
+                        alert(data)
+                    }
+                })
+            }
+            function double_check() {
+                let check_before_submit = confirm("已审核的事项将不能修改，是否确认审核");
+                if (check_before_submit === false) {
+                    return false
+                }
+                let item_list = document.getElementsByClassName("item_list");
+                let check_id = [];
+                for (let i = 0; i < item_list.length; i++) {
+                        check_id.push(item_list[i].children[9].innerText);
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/DailyReport/check_item",
+                    contentType: "application/json",
+                    data: JSON.stringify({"type": "double_check", "check_id": check_id}),
+                    success: function (data) {
+                        if (data.status === 200) {
+                            alert(data.message);
+                            location.reload();
+                        }
+                        else {
+                            alert(data.message)
+                        }
+                    },
+                    error: function (data) {
+                        alert(data)
+                    }
+                })
+            }
+            function ExportExcel() {
+                let submit_form = document.createElement("form");
+                let submit_input = document.createElement("input");
+                submit_form.action = "/DailyReport/ExportFile";
+                submit_form.method = "POST";
+                submit_form.style.display = "none";
+                submit_input.type = "hidden";
+                submit_input.name = "timestamp";
+                submit_input.value = "{{ current_time }}";
+                submit_form.appendChild(submit_input);
+                document.body.appendChild(submit_form);
+                submit_form.submit()
+            }
+            function send_message_page() {
+                window.open("/DailyReport/SendMessage", "","height=800, width=800, toolbar=no," +
+                    "menubar=no, resizable=no, location=no, status=no, left=500, top=50, scrollbars=yes")
+            }
+        </script>
+    {% endif %}
+</body>
+</html>

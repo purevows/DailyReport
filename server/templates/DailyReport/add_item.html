@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--<script src="/static/Plugin/jquery-2.2.4.min.js"></script>-->
+    <script src="/static/Plugin/jquery-2.2.4.js"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta charset="UTF-8">
+    <title>新增事项</title>
+</head>
+<body onload="compatibility_prompt()">
+    <p style="text-align: right; font-size: 80%" id="compatibility_prompt"></p>
+    <h1 style="text-align: center">新增事项</h1>
+    <table class="subject" id="add_new_content_table" style="margin:0 auto" border="1">
+        <tr>
+            <td colspan="4">当前日期：{{ current_time }}</td>
+            <td colspan="2" style="text-align: center">
+                <a href="/DailyReport">返回</a>
+                <a href="/logout">退出登录</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">{{ current_department }}：{{ current_user }}</td>
+            <td style="text-align: center"><a href="javascript:void(0)" onclick="return submit()">提交</a></td>
+        </tr>
+        <tr>
+            <td style="width: 150px; text-align: center">部门</td>
+            <td style="width: 300px; text-align: center">事项</td>
+            <td style="width: 100px; text-align: center">经办人</td>
+            <td style="width: 150px; text-align: center">备注</td>
+            <td style="width: 50px; text-align: center">填报人</td>
+            <td style="width: 100px; text-align: center">选项</td>
+        </tr>
+        <tr class="modify_content" id="1">
+            <td style="text-align: center">{{ current_department }}</td>
+            <td><textarea name="new_content" style="width: 400px; resize: none"></textarea></td>
+            <td><textarea name="new_operator" style="width: 100px; resize: none"></textarea></td>
+            <td><textarea name="new_remark" style="width: 150px; resize: none"></textarea></td>
+            <td style="text-align: center">{{ current_user }}</td>
+            <td style="text-align: center"><a href="javascript:void(0)" onclick="del_list('1')">删除</a></td>
+        </tr>
+        <tr class="add_content" id="2">
+            <td colspan="6"><a href="javascript:void(0)" onclick="add_list(document.getElementsByClassName
+            ('add_content')[0].id)">添加</a></td>
+        </tr>
+    </table>
+    <p style="text-align: right">Developed by 综合管理部, ver:2020-05-20</p>
+    <script type="text/javascript">
+        function add_list(id) {
+            let node_list = document.getElementById(id);
+            let add_new_content = "<td><textarea name=\"new_content\" style=\"width: 400px; resize: none\"></textarea></td>";
+            let add_new_operator = "<td><textarea name=\"new_operator\" style=\"width: 100px; resize: none\"></textarea></td>";
+            let add_new_remark = "<td><textarea name=\"new_remark\" style=\"width: 150px; resize: none\"></textarea></td>";
+            let next_add_function = "<td colspan=\"6\"><a href=\"javascript:void(0)\" onclick=" +
+                "\"add_list(document.getElementsByClassName\n ('add_content')[0].id)\">添加</a></td>\n";
+            node_list.innerHTML = "<td style=\"text-align: center\">{{ current_department }}</td>" +
+                add_new_content + add_new_operator + add_new_remark +
+                "<td style=\"text-align: center\">{{ current_user }}</td><td style=\"text-align: center\">" +
+                "<a href=\"javascript:void(0)\" onclick=\"del_list(" + id + ")\">删除</a></td>";
+            node_list.className = "modify_content";
+            let new_line = document.getElementById("add_new_content_table").children[0].appendChild(document.createElement("tr"));
+            new_line.className = "add_content";
+            new_line.id = (Number(id) + 1).toString();
+            new_line.innerHTML = next_add_function;
+        }
+        function del_list(id) {
+            if (check_IE()) {
+                document.getElementById(id).removeNode(true);
+            }
+            else {
+                document.getElementById(id).remove();
+            }
+        }
+        function submit() {
+            let modify_class = document.getElementsByClassName("modify_content");
+            let form_data = [];
+            for(let i = 0; i < modify_class.length; i++) {
+                let data = modify_class[i].children[1].children[0].value;
+                if (data === "") {
+                    alert("事项不能留空");
+                    return false;
+                }
+                let operator = modify_class[i].children[2].children[0].value;
+                if (operator === "") {
+                    alert("经办人不能留空");
+                    return false;
+                }
+                let remark = modify_class[i].children[3].children[0].value;
+                form_data.push(
+                    {
+                        "content": data,
+                        "operator": operator,
+                        "remark": remark
+                    }
+                );
+            }
+            $.ajax({
+                type: "POST",
+                url: "/DailyReport/add_new_content",
+                contentType: "application/json",
+                data: JSON.stringify(form_data),
+                success: function (data) {
+                    if (data.status === 200) {
+                        alert(data.message);
+                        window.location.href = data.url;
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                },
+                error: function (data) {
+                    alert(data);
+                },
+            })
+        }
+        function check_IE() {
+            return window.navigator.userAgent.indexOf('Trident') > 0 || window.navigator.userAgent.indexOf('MSIE ') > 0;
+        }
+        function compatibility_prompt() {
+            if (check_IE()) {
+                document.getElementById("compatibility_prompt").innerText = "当前页面处于IE兼容模式，" +
+                    "建议将浏览器切换为极速模式或更换\nChrome浏览器访问，避免出现兼容问题以达到最佳访问效果";
+            }
+        }
+    </script>
+</body>
+</html>

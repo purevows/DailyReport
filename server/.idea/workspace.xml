@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="12aa5896-c50f-44d3-9410-09f5ad729a1e" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <bower-package value="" />
+    <bower.json value="" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="ProjectId" id="1aKUdkPaQcezxwNXIbgIQLNPHkp" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../SSOSystem/server" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.build" />
+  </component>
+  <component name="RunManager">
+    <configuration name="server" type="PythonConfigurationType" factoryName="Python">
+      <module name="server" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="12aa5896-c50f-44d3-9410-09f5ad729a1e" name="Default Changelist" comment="" />
+      <created>1586483868489</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1586483868489</updated>
+      <workItem from="1586483869678" duration="1851000" />
+      <workItem from="1586486052407" duration="280000" />
+      <workItem from="1586486342458" duration="15849000" />
+      <workItem from="1586688245000" duration="8925000" />
+      <workItem from="1586738643185" duration="5643000" />
+      <workItem from="1586832021628" duration="34762000" />
+      <workItem from="1587084017478" duration="9130000" />
+      <workItem from="1587181694220" duration="8292000" />
+      <workItem from="1587261270846" duration="5142000" />
+      <workItem from="1587289291272" duration="1679000" />
+      <workItem from="1587344768963" duration="4259000" />
+      <workItem from="1587450859548" duration="62000" />
+      <workItem from="1587458330953" duration="9763000" />
+      <workItem from="1587524425664" duration="12164000" />
+      <workItem from="1587605508386" duration="11073000" />
+      <workItem from="1587692553320" duration="1417000" />
+      <workItem from="1587708618581" duration="56913000" />
+      <workItem from="1588056900471" duration="34634000" />
+      <workItem from="1588225543577" duration="10704000" />
+      <workItem from="1588256009000" duration="3040000" />
+      <workItem from="1588319092980" duration="11491000" />
+      <workItem from="1588391185597" duration="8559000" />
+      <workItem from="1588413539512" duration="5814000" />
+      <workItem from="1588491138459" duration="9129000" />
+      <workItem from="1588501610401" duration="3140000" />
+      <workItem from="1588557859801" duration="3882000" />
+      <workItem from="1588648163267" duration="760000" />
+      <workItem from="1588651411154" duration="302000" />
+      <workItem from="1588743660126" duration="41000" />
+      <workItem from="1588928418434" duration="1011000" />
+      <workItem from="1588984118139" duration="18510000" />
+      <workItem from="1589034550484" duration="3778000" />
+      <workItem from="1589160243270" duration="153000" />
+      <workItem from="1589181003247" duration="8490000" />
+      <workItem from="1589263015978" duration="16000" />
+      <workItem from="1589263117514" duration="6655000" />
+      <workItem from="1589439368651" duration="3416000" />
+      <workItem from="1589764606443" duration="906000" />
+      <workItem from="1589765860429" duration="21817000" />
+      <workItem from="1589855507128" duration="33839000" />
+      <workItem from="1590021844786" duration="7744000" />
+      <workItem from="1590067732188" duration="4650000" />
+      <workItem from="1590113829980" duration="4882000" />
+      <workItem from="1590135005713" duration="1808000" />
+      <workItem from="1590387419694" duration="3593000" />
+      <workItem from="1590541173133" duration="2958000" />
+      <workItem from="1590569655572" duration="2381000" />
+      <workItem from="1591085565806" duration="99000" />
+      <workItem from="1591087877745" duration="71000" />
+      <workItem from="1592288576525" duration="7467000" />
+      <workItem from="1592362938907" duration="1765000" />
+      <workItem from="1592381324094" duration="1514000" />
+      <workItem from="1593652342880" duration="4775000" />
+      <workItem from="1594720519464" duration="72000" />
+      <workItem from="1594800030989" duration="1730000" />
+      <workItem from="1595387243983" duration="29000" />
+      <workItem from="1595494810315" duration="1783000" />
+      <workItem from="1595838669641" duration="126000" />
+      <workItem from="1595838848696" duration="1118000" />
+      <workItem from="1597106538740" duration="313000" />
+      <workItem from="1597111402542" duration="88000" />
+      <workItem from="1597709885834" duration="1218000" />
+      <workItem from="1597827312523" duration="771000" />
+      <workItem from="1600411382528" duration="686000" />
+      <workItem from="1605247969408" duration="2585000" />
+      <workItem from="1606183259441" duration="9671000" />
+      <workItem from="1606267597687" duration="4354000" />
+      <workItem from="1606351529730" duration="8335000" />
+      <workItem from="1606448064458" duration="4283000" />
+      <workItem from="1606706163784" duration="671000" />
+      <workItem from="1607051392019" duration="1199000" />
+      <workItem from="1607312003250" duration="2686000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="179" key="#Deployment" timestamp="1605248727362">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="179" key="#Deployment/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1605248727362" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1606706235521">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1606706235521" />
+    <state x="461" y="162" key="SettingsEditor" timestamp="1605248486053">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1605248486053" />
+    <state x="640" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1607312002422">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="640" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1607312002422" />
+  </component>
+</project>
