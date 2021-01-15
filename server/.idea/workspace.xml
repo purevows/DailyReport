@@ -10,9 +10,20 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
     </option>
   </component>
   <component name="JsBowerSettings">
@@ -29,15 +40,15 @@
   <component name="ProjectId" id="1aKUdkPaQcezxwNXIbgIQLNPHkp" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../SSOSystem/server" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.build" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager">
     <configuration name="server" type="PythonConfigurationType" factoryName="Python">
@@ -75,6 +86,7 @@
       </list>
     </option>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -157,28 +169,20 @@
       <workItem from="1606706163784" duration="671000" />
       <workItem from="1607051392019" duration="1199000" />
       <workItem from="1607312003250" duration="2686000" />
+      <workItem from="1608200331803" duration="645000" />
+      <workItem from="1609292703842" duration="5349000" />
+      <workItem from="1609721974422" duration="2121000" />
+      <workItem from="1609839754499" duration="2306000" />
+      <workItem from="1610417833516" duration="13040000" />
+      <workItem from="1610520109196" duration="604000" />
+      <workItem from="1610520731023" duration="2598000" />
+      <workItem from="1610531496131" duration="1216000" />
+      <workItem from="1610586930872" duration="7654000" />
+      <workItem from="1610604939774" duration="4316000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="552" y="179" key="#Deployment" timestamp="1605248727362">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="179" key="#Deployment/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1605248727362" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1606706235521">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1606706235521" />
-    <state x="461" y="162" key="SettingsEditor" timestamp="1605248486053">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1605248486053" />
-    <state x="640" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1607312002422">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="640" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1607312002422" />
+    <option name="version" value="3" />
   </component>
 </project>

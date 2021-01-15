@@ -9,6 +9,7 @@ import json
 
 
 DailyReport = Blueprint("DailyReport", __name__)
+ver = "2021-01-14"
 
 
 @DailyReport.route("/", methods=["GET"])
@@ -25,7 +26,7 @@ def list_item():
     current_department = session.get("department")
     logger.info("User " + current_user + " loads the item list of " + current_time)
     return render_template("/DailyReport/list_item.html", current_time=current_time, item_list=get_item_list,
-                           current_user=current_user, current_department=current_department)
+                           current_user=current_user, current_department=current_department, ver=ver)
 
 
 @DailyReport.route("/add_item")
@@ -37,7 +38,7 @@ def add_content_page():
     current_user = session.get("name")
     current_department = session.get("department")
     return render_template("/DailyReport/add_item.html", current_time=current_time, current_user=current_user,
-                           current_department=current_department)
+                           current_department=current_department, ver=ver)
 
 
 @DailyReport.route("/modify", methods=["POST"])

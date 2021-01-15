@@ -1,12 +1,19 @@
 from .DailyReportPlugin import logger
+from .db_config import DailyReportDbPoolConfig as Config
+from dbutils.pooled_db import PooledDB
 import pymysql
 import datetime
 import uuid
 import traceback
 
+pool = PooledDB(creator=pymysql, mincached=Config.mincached, maxcached=Config.maxcached,
+                maxconnections=Config.maxconnections, maxusage=Config.maxusage, maxshared=Config.maxshared,
+                blocking=Config.blocking, setsession=Config.setsession, reset=Config.reset, user=Config.user,
+                host=Config.host, port=Config.port, password=Config.password, database=Config.db)
+
 
 def create_new_item(list_form_data):
-    deadline = datetime.time(16, 50)
+    deadline = datetime.time(17, 50)
     if datetime.datetime.now().time() > deadline:
         return "提交截止了哦亲，明天请早哦~~~。截止时间：每日17:50"
     for form_data in list_form_data:
@@ -15,8 +22,7 @@ def create_new_item(list_form_data):
             return ret
     # noinspection PyBroadException
     try:
-        db_conn = pymysql.connect(host="192.168.0.0", user="user", password="password",
-                                  database="PMSystem")
+        db_conn = pool.connection()
         db_cursor = db_conn.cursor()
         for form_data in list_form_data:
             db_cursor.execute("insert into daily_report(id, content, department, operator, remark, uploader,"
@@ -35,8 +41,7 @@ def create_new_item(list_form_data):
 def delete_item(form_data):
     # noinspection PyBroadException
     try:
-        db_conn = pymysql.connect(host="192.168.0.0", user="user", password="password",
-                                  database="PMSystem")
+        db_conn = pool.connection()
         db_cursor = db_conn.cursor()
         db_cursor.execute("delete from daily_report where id = '%s'" % form_data["id"])
         db_conn.commit()
@@ -53,8 +58,7 @@ def modify_content(form_data):
         return ret
     # noinspection PyBroadException
     try:
-        db_conn = pymysql.connect(host="192.168.0.0", user="user", password="password",
-                                  database="PMSystem")
+        db_conn = pool.connection()
         db_cursor = db_conn.cursor()
         db_cursor.execute("update daily_report set content = '%s', operator = '%s', remark = '%s',"
                           "department = '%s' where id = '%s'" %
@@ -69,8 +73,7 @@ def modify_content(form_data):
 
 
 def query_data(timestamp):
-    db_conn = pymysql.connect(host="192.168.0.0", user="user", password="password",
-                              database="PMSystem")
+    db_conn = pool.connection()
     db_cursor = db_conn.cursor()
     db_cursor.execute("select id, content, department, operator, remark, uploader, upload_time,"
                       "first_check, first_check_time, double_check, double_check_time from daily_report"
@@ -88,8 +91,7 @@ def query_data(timestamp):
 def submit_first_check(list_form_data, current_user):
     # noinspection PyBroadException
     try:
-        db_conn = pymysql.connect(host="192.168.0.0", user="user", password="password",
-                                  database="PMSystem")
+        db_conn = pool.connection()
         db_cursor = db_conn.cursor()
         for form_data in list_form_data:
             db_cursor.execute("select first_check, first_check_time from daily_report where id = '%s'"
@@ -111,8 +113,7 @@ def submit_first_check(list_form_data, current_user):
 def submit_double_check(list_form_data, current_user):
     # noinspection PyBroadException
     try:
-        db_conn = pymysql.connect(host="192.168.0.0", user="user", password="password",
-                                  database="PMSystem")
+        db_conn = pool.connection()
         db_cursor = db_conn.cursor()
         for form_data in list_form_data:
             db_cursor.execute("select double_check, double_check_time from daily_report where id = '%s'"
@@ -134,8 +135,7 @@ def submit_double_check(list_form_data, current_user):
 def query_mobile():
     # noinspection PyBroadException
     try:
-        db_conn = pymysql.connect(host="192.168.0.0", user="user", password="password",
-                                  database="ecoa_gzjt")
+        db_conn = pool.connection()
         db_cursor = db_conn.cursor()
         db_cursor.execute("select id, name, mobile from org_person where status = 1 and mobile <> ''")
         ret = []

@@ -5,7 +5,7 @@ import logging
 
 class ProductionConfig:
     SECRET_KEY = os.urandom(24)
-    sso_url = ""
+    sso_url = "https://auth.gddci.com"
     local_url = "1001"
 
 

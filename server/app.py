@@ -5,7 +5,7 @@ import json
 import os
 import requests
 
-web_type = "development"  # develop or production
+web_type = "development"  # development or production
 app = Flask(__name__)
 app.config.from_object(flask_config[web_type])
 app.jinja_env.trim_blocks = True
